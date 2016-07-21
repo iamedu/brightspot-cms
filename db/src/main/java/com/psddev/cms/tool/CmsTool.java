@@ -194,6 +194,9 @@ public class CmsTool extends Tool {
     @ToolUi.Tab("Debug")
     private boolean horizontalSearchCarousel;
 
+    @ToolUi.Tab("Debug")
+    private boolean useOldHistoryIndex;
+
     @Embedded
     public static class CommonTime extends Record {
 
@@ -841,6 +844,14 @@ public class CmsTool extends Tool {
 
     public void setHorizontalSearchCarousel(boolean horizontalSearchCarousel) {
         this.horizontalSearchCarousel = horizontalSearchCarousel;
+    }
+
+    public boolean isUseOldHistoryIndex() {
+        return useOldHistoryIndex;
+    }
+
+    public void setUseOldHistoryIndex(boolean useOldHistoryIndex) {
+        this.useOldHistoryIndex = useOldHistoryIndex;
     }
 
     public String createManualContentLockingNoteText() {

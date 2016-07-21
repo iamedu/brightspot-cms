@@ -114,11 +114,22 @@ public class ContentRevisions extends Widget {
             namedHistories.add(h);
         }
 
-        PaginatedResult<History> historiesResult = Query
-                .from(History.class)
-                .where("name = missing and getObjectIdUpdateDate ^= ?", state.getId().toString())
-                .sortDescending("getObjectIdUpdateDate")
-                .select(0, 10);
+        PaginatedResult<History> historiesResult;
+
+        if (page.getCmsTool().isUseOldHistoryIndex()) {
+            historiesResult = Query
+                    .from(History.class)
+                    .where("name = missing and objectId = ?", state.getId())
+                    .sortDescending("updateDate")
+                    .select(0, 10);
+
+        } else {
+            historiesResult = Query
+                    .from(History.class)
+                    .where("name = missing and getObjectIdUpdateDate ^= ?", state.getId().toString())
+                    .sortDescending("getObjectIdUpdateDate")
+                    .select(0, 10);
+        }
 
         for (History h : historiesResult.getItems()) {
             histories.add(h);
